@@ -1,0 +1,68 @@
+---
+title: "Sta 522 HW8 (the one about study designs)"
+author: "Daniel Truver"
+date: "04/04/2018"
+output: pdf_document
+fontsize: 11pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(dplyr)
+library(ggplot2)
+```
+
+#### (1) Librarian or Farmer
+
+```{r}
+Y.bar.322 = c("trt" = .3, "ctr" = .5)
+Y.bar.522 = c("trt" = .6, "ctr" = .8)
+```
+
+##### (a) Treatment Effects
+
+$$
+\tau = \frac{1}{2}\left[(0.30 - 0.50) + (0.60 - 0.80)\right] = -0.20.
+$$
+
+##### (b) Block vs non-block
+
+Yes, the blocks would be beneficial. While the within group treatment effects $\tau_{322}, \tau_{522}$ are the same (-0.20), there appears to be a substantial influence of class section between groups. STA 522 students are twice as likely to say librarian under the treatment condition. A random assignment that happens to contain an abundance of 522 students would produce an overestimate of the treatment effects.
+
+#### (2) What if the number we slightly different?
+
+```{r}
+Y.bar.322 = c("trt" = .3, "ctr" = .6)
+Y.bar.522 = c("trt" = .3, "ctr" = .6)
+```
+
+##### (a) Treatment Effect
+
+$$
+\tau = \frac{1}{2}\cdot2\cdot(0.30-0.60) = -0.30.
+$$
+
+##### (b) Blocking
+
+We would not see a benefit from blocking in this scenario. The same proportion of students from both class sections respond librarian under the treatment and control. Having a dispropotionate number of 522 or 322 students assigned to treatment would have no effect on the expected outcome since the true proportions are the same. It's worth noting, however, that blocking would not be harmful, and when we do not know the true values, it can be helpful.
+
+#### (3) Regression Model
+
+$$
+\log\left( \frac{p}{1-p} \right) =\beta_0 +  \tau I_i +  \beta_{522}I_{i,522} + \beta_{blocks}W_i
+$$
+where $I_i$ is assignment to treatment, $I_{i,522}$ is inclusion in section 522, and $W_i$ is the interaction of the $I$'s.
+
+#### (4) Paper on Web Page Design
+
+##### (a) Absence of Block Designs
+
+Why are block designs absent from the paper? Not for any statistical reason, there's just no obvious way to assign users to blocks. The user-identifying information discussed in the paper is IP address and browser cookies. Neither of these provide a meaningful characteristic of the user for assignment into a block.
+
+##### (b) Full Factorial Opinion
+
+The authors do believe that full factorial designs can be advantageous. Factorial designs increase efficiency by testing multiple factor changes at once and give insight into the interactions. The authors do caution that a full factorial design can be impractical. It takes time to implement different factor levels which can delay the start of testing (unfortunate web designers testing $2^6$ different layouts). They use this fact to make a case for fractional factorial designs.   
+
+Combining so many factors can trigger the law of unintended consequences: One layout may create such a negative user experience that we must kill it early; this would disrupt the entire full factorial experiment. The authors instead suggest assigning users independently to view each level of a factor. Interactions can still emerge, but a severe issue with some combination will not endanger the whole experiment.  
+
+On the issue of implementation time, the authors suggest releasing each factor level as it is prepared. This will interfere with the testing of interactions, but they claim interactions are often weak in practice. 
