@@ -14,7 +14,7 @@ library(ggplot2)
 
 #### (1) Librarian or Farmer
 
-```{r}
+```{r, echo=FALSE}
 Y.bar.322 = c("trt" = .3, "ctr" = .5)
 Y.bar.522 = c("trt" = .6, "ctr" = .8)
 ```
@@ -27,11 +27,11 @@ $$
 
 ##### (b) Block vs non-block
 
-Yes, the blocks would be beneficial. While the within group treatment effects $\tau_{322}, \tau_{522}$ are the same (-0.20), there appears to be a substantial influence of class section between groups. STA 522 students are twice as likely to say librarian under the treatment condition. A random assignment that happens to contain an abundance of 522 students would produce an overestimate of the treatment effects.
+Yes, the blocks would be beneficial. While the within group treatment effects $\tau_{322}, \tau_{522}$ are the same (-0.20), there appears to be a substantial influence of class section between groups. STA 522 students are twice as likely to say librarian under the treatment condition. A random assignment that happens to contain an overabundance of 522 students would produce an overestimate of the treatment effects.
 
 #### (2) What if the number we slightly different?
 
-```{r}
+```{r, echo=FALSE}
 Y.bar.322 = c("trt" = .3, "ctr" = .6)
 Y.bar.522 = c("trt" = .3, "ctr" = .6)
 ```
